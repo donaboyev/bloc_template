@@ -5,7 +5,24 @@ import 'package:toastification/toastification.dart';
 abstract class AppHelpers {
   AppHelpers._();
 
-  static void errorToast({required BuildContext context, required String message}) {
+  static void successToast({
+    required BuildContext context,
+    required String message,
+  }) {
+    toastification.show(
+      context: context,
+      type: ToastificationType.success,
+      style: ToastificationStyle.flat,
+      title: Text(message),
+      alignment: Alignment.topLeft,
+      autoCloseDuration: const Duration(seconds: 4),
+    );
+  }
+
+  static void errorToast({
+    required BuildContext context,
+    required String message,
+  }) {
     toastification.show(
       context: context,
       type: ToastificationType.error,

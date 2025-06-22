@@ -72,6 +72,28 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       );
     });
 
+    on<SaveNumberInfo>((event, emit) async {
+      emit(state.copyWith(isSaving: true));
+      final res = await numbersRepository.saveNumberInfo(event.response);
+      res.fold(
+        (success) {
+          emit(state.copyWith(isSaving: false));
+          AppHelpers.successToast(
+            context: event.context,
+            message: 'Number fact saved successfully',
+          );
+          Navigator.pop(event.context); // Close the dialog
+        },
+        (error) {
+          emit(state.copyWith(isSaving: false));
+          AppHelpers.errorToast(
+            context: event.context,
+            message: error,
+          );
+        },
+      );
+    });
+
     _initConnectivity();
   }
 

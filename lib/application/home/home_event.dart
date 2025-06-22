@@ -16,4 +16,9 @@ abstract class HomeEvent with _$HomeEvent {
     required String number,
     Function(CommonResponse)? onSuccess,
   }) = FetchNumberInfo;
+
+  const factory HomeEvent.saveNumberInfo(
+    BuildContext context,
+    CommonResponse response,
+  ) = SaveNumberInfo;
 }

@@ -7,5 +7,6 @@ abstract class HomeState with _$HomeState {
     @Default(true) bool isRandom,
     @Default(false) bool isNetworkDisabled,
     @Default(false) bool isLoading,
+    @Default(false) bool isSaving,
   }) = _HomeStatee;
 }

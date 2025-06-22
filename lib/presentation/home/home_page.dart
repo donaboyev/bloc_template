@@ -166,7 +166,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                               onSuccess: (data) {
                                 showCupertinoDialog(
                                   context: context,
-                                  builder: (context) {
+                                  builder: (_) {
                                     return CupertinoAlertDialog(
                                       title: (data.found ?? true)
                                           ? Icon(
@@ -184,7 +184,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                           SizedBox(height: 24),
                                           if (data.found ?? true)
                                             TextButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                bloc.add(
+                                                  HomeEvent.saveNumberInfo(
+                                                    context,
+                                                    data,
+                                                  ),
+                                                );
+                                              },
                                               child: Text('Save this fact'),
                                             ),
                                           TextButton(
