@@ -1,10 +1,14 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../infrastructure/app_helpers.dart';
+import '../../infrastructure/dependency_manager.dart';
 import '../../infrastructure/info_type.dart';
+import '../../domain/model/common_response.dart';
 
 part 'home_event.dart';
 
@@ -38,6 +42,33 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         state.copyWith(
           isNetworkDisabled: result.contains(ConnectivityResult.none),
         ),
+      );
+    });
+
+    on<FetchNumberInfo>((event, emit) async {
+      final number = int.tryParse(event.number);
+      if (number == null && !state.isRandom) {
+        AppHelpers.errorToast(
+          context: event.context,
+          message: 'Number should be an integer',
+        );
+        return;
+      }
+      if (state.isLoading) return;
+      emit(state.copyWith(isLoading: true));
+      final res = await numbersRepository.fetchNumberInfo(
+        type: state.infoType,
+        number: state.isRandom ? null : number,
+      );
+      res.fold(
+        (l) {
+          emit(state.copyWith(isLoading: false));
+          event.onSuccess?.call(l);
+        },
+        (r) {
+          emit(state.copyWith(isLoading: false));
+          AppHelpers.errorToast(context: event.context, message: r);
+        },
       );
     });
 

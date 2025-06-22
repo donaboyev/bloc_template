@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:numbers_bloc/infrastructure/info_type.dart';
-import 'package:numbers_bloc/presentation/components/keyboard_dismisser.dart';
-import 'package:numbers_bloc/presentation/home/widget/selectable_info_type.dart';
 
 import '../../application/home/home_bloc.dart';
+import '../../infrastructure/info_type.dart';
+import '../components/keyboard_dismisser.dart';
 import '../saved/saved_page.dart';
+import 'widget/selectable_info_type.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -157,7 +157,55 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                         ),
                       ),
                       SizedBox(height: 24),
-                      ElevatedButton(onPressed: () {}, child: Text('Get Info')),
+                      ElevatedButton(
+                        onPressed: () {
+                          bloc.add(
+                            HomeEvent.fetchNumberInfo(
+                              context,
+                              number: numberController.text.trim(),
+                              onSuccess: (data) {
+                                showCupertinoDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return CupertinoAlertDialog(
+                                      title: (data.found ?? true)
+                                          ? Icon(
+                                              Icons.check_circle,
+                                              color: Colors.green,
+                                            )
+                                          : Icon(
+                                              Icons.error,
+                                              color: Colors.red,
+                                            ),
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text('${data.text}'),
+                                          SizedBox(height: 24),
+                                          if (data.found ?? true)
+                                            TextButton(
+                                              onPressed: () {},
+                                              child: Text('Save this fact'),
+                                            ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text('Close'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          );
+                        },
+                        child: state.isLoading
+                            ? CupertinoActivityIndicator()
+                            : Text('Get Info'),
+                      ),
                     ],
                   );
           },

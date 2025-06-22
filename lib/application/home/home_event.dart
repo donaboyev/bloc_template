@@ -6,7 +6,14 @@ abstract class HomeEvent with _$HomeEvent {
 
   const factory HomeEvent.toggleRandom() = ToggleRandom;
 
-  const factory HomeEvent.updateNetworkStatus(bool isDisabled) = UpdateNetworkStatus;
+  const factory HomeEvent.updateNetworkStatus(bool isDisabled) =
+      UpdateNetworkStatus;
 
   const factory HomeEvent.checkNetworkStatus() = CheckNetworkStatus;
+
+  const factory HomeEvent.fetchNumberInfo(
+    BuildContext context, {
+    required String number,
+    Function(CommonResponse)? onSuccess,
+  }) = FetchNumberInfo;
 }

@@ -6,5 +6,6 @@ abstract class HomeState with _$HomeState {
     @Default(InfoType.math) InfoType infoType,
     @Default(true) bool isRandom,
     @Default(false) bool isNetworkDisabled,
+    @Default(false) bool isLoading,
   }) = _HomeStatee;
 }
