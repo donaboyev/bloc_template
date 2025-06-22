@@ -239,9 +239,79 @@ String toString() {
 
 
 /// @nodoc
+
+
+class FetchNumberInfo implements HomeEvent {
+  const FetchNumberInfo(this.context, {required this.number, this.onSuccess});
+  
+
+ final  BuildContext context;
+ final  String number;
+ final   Function(CommonResponse)? onSuccess;
+
+/// Create a copy of HomeEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FetchNumberInfoCopyWith<FetchNumberInfo> get copyWith => _$FetchNumberInfoCopyWithImpl<FetchNumberInfo>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FetchNumberInfo&&(identical(other.context, context) || other.context == context)&&(identical(other.number, number) || other.number == number)&&(identical(other.onSuccess, onSuccess) || other.onSuccess == onSuccess));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,context,number,onSuccess);
+
+@override
+String toString() {
+  return 'HomeEvent.fetchNumberInfo(context: $context, number: $number, onSuccess: $onSuccess)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $FetchNumberInfoCopyWith<$Res> implements $HomeEventCopyWith<$Res> {
+  factory $FetchNumberInfoCopyWith(FetchNumberInfo value, $Res Function(FetchNumberInfo) _then) = _$FetchNumberInfoCopyWithImpl;
+@useResult
+$Res call({
+ BuildContext context, String number,  Function(CommonResponse)? onSuccess
+});
+
+
+
+
+}
+/// @nodoc
+class _$FetchNumberInfoCopyWithImpl<$Res>
+    implements $FetchNumberInfoCopyWith<$Res> {
+  _$FetchNumberInfoCopyWithImpl(this._self, this._then);
+
+  final FetchNumberInfo _self;
+  final $Res Function(FetchNumberInfo) _then;
+
+/// Create a copy of HomeEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? context = null,Object? number = null,Object? onSuccess = freezed,}) {
+  return _then(FetchNumberInfo(
+null == context ? _self.context : context // ignore: cast_nullable_to_non_nullable
+as BuildContext,number: null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
+as String,onSuccess: freezed == onSuccess ? _self.onSuccess : onSuccess // ignore: cast_nullable_to_non_nullable
+as  Function(CommonResponse)?,
+  ));
+}
+
+
+}
+
+/// @nodoc
 mixin _$HomeState {
 
- InfoType get infoType; bool get isRandom; bool get isNetworkDisabled;
+ InfoType get infoType; bool get isRandom; bool get isNetworkDisabled; bool get isLoading;
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -252,16 +322,16 @@ $HomeStateCopyWith<HomeState> get copyWith => _$HomeStateCopyWithImpl<HomeState>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.infoType, infoType) || other.infoType == infoType)&&(identical(other.isRandom, isRandom) || other.isRandom == isRandom)&&(identical(other.isNetworkDisabled, isNetworkDisabled) || other.isNetworkDisabled == isNetworkDisabled));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.infoType, infoType) || other.infoType == infoType)&&(identical(other.isRandom, isRandom) || other.isRandom == isRandom)&&(identical(other.isNetworkDisabled, isNetworkDisabled) || other.isNetworkDisabled == isNetworkDisabled)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,infoType,isRandom,isNetworkDisabled);
+int get hashCode => Object.hash(runtimeType,infoType,isRandom,isNetworkDisabled,isLoading);
 
 @override
 String toString() {
-  return 'HomeState(infoType: $infoType, isRandom: $isRandom, isNetworkDisabled: $isNetworkDisabled)';
+  return 'HomeState(infoType: $infoType, isRandom: $isRandom, isNetworkDisabled: $isNetworkDisabled, isLoading: $isLoading)';
 }
 
 
@@ -272,7 +342,7 @@ abstract mixin class $HomeStateCopyWith<$Res>  {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) _then) = _$HomeStateCopyWithImpl;
 @useResult
 $Res call({
- InfoType infoType, bool isRandom, bool isNetworkDisabled
+ InfoType infoType, bool isRandom, bool isNetworkDisabled, bool isLoading
 });
 
 
@@ -289,11 +359,12 @@ class _$HomeStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? infoType = null,Object? isRandom = null,Object? isNetworkDisabled = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? infoType = null,Object? isRandom = null,Object? isNetworkDisabled = null,Object? isLoading = null,}) {
   return _then(_self.copyWith(
 infoType: null == infoType ? _self.infoType : infoType // ignore: cast_nullable_to_non_nullable
 as InfoType,isRandom: null == isRandom ? _self.isRandom : isRandom // ignore: cast_nullable_to_non_nullable
 as bool,isNetworkDisabled: null == isNetworkDisabled ? _self.isNetworkDisabled : isNetworkDisabled // ignore: cast_nullable_to_non_nullable
+as bool,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -305,12 +376,13 @@ as bool,
 
 
 class _HomeStatee implements HomeState {
-  const _HomeStatee({this.infoType = InfoType.math, this.isRandom = true, this.isNetworkDisabled = false});
+  const _HomeStatee({this.infoType = InfoType.math, this.isRandom = true, this.isNetworkDisabled = false, this.isLoading = false});
   
 
 @override@JsonKey() final  InfoType infoType;
 @override@JsonKey() final  bool isRandom;
 @override@JsonKey() final  bool isNetworkDisabled;
+@override@JsonKey() final  bool isLoading;
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
@@ -322,16 +394,16 @@ _$HomeStateeCopyWith<_HomeStatee> get copyWith => __$HomeStateeCopyWithImpl<_Hom
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeStatee&&(identical(other.infoType, infoType) || other.infoType == infoType)&&(identical(other.isRandom, isRandom) || other.isRandom == isRandom)&&(identical(other.isNetworkDisabled, isNetworkDisabled) || other.isNetworkDisabled == isNetworkDisabled));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeStatee&&(identical(other.infoType, infoType) || other.infoType == infoType)&&(identical(other.isRandom, isRandom) || other.isRandom == isRandom)&&(identical(other.isNetworkDisabled, isNetworkDisabled) || other.isNetworkDisabled == isNetworkDisabled)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,infoType,isRandom,isNetworkDisabled);
+int get hashCode => Object.hash(runtimeType,infoType,isRandom,isNetworkDisabled,isLoading);
 
 @override
 String toString() {
-  return 'HomeState(infoType: $infoType, isRandom: $isRandom, isNetworkDisabled: $isNetworkDisabled)';
+  return 'HomeState(infoType: $infoType, isRandom: $isRandom, isNetworkDisabled: $isNetworkDisabled, isLoading: $isLoading)';
 }
 
 
@@ -342,7 +414,7 @@ abstract mixin class _$HomeStateeCopyWith<$Res> implements $HomeStateCopyWith<$R
   factory _$HomeStateeCopyWith(_HomeStatee value, $Res Function(_HomeStatee) _then) = __$HomeStateeCopyWithImpl;
 @override @useResult
 $Res call({
- InfoType infoType, bool isRandom, bool isNetworkDisabled
+ InfoType infoType, bool isRandom, bool isNetworkDisabled, bool isLoading
 });
 
 
@@ -359,11 +431,12 @@ class __$HomeStateeCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? infoType = null,Object? isRandom = null,Object? isNetworkDisabled = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? infoType = null,Object? isRandom = null,Object? isNetworkDisabled = null,Object? isLoading = null,}) {
   return _then(_HomeStatee(
 infoType: null == infoType ? _self.infoType : infoType // ignore: cast_nullable_to_non_nullable
 as InfoType,isRandom: null == isRandom ? _self.isRandom : isRandom // ignore: cast_nullable_to_non_nullable
 as bool,isNetworkDisabled: null == isNetworkDisabled ? _self.isNetworkDisabled : isNetworkDisabled // ignore: cast_nullable_to_non_nullable
+as bool,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
